@@ -4,33 +4,61 @@ using UnityEngine;
 
 public class Playing : MonoBehaviour{
 
+    // :)
+
     public static bool CanPressL, CanPressR, CanPressD, CanPressU;
     bool Touch1CPB; //, Touch2CPB; CPB = Can Push Buttons
     float Score; //, UpEnemies, DownEnemies, LeftEnemies, RightEnemies;
     // public GameObject TriggerButtonUp, TriggerButtonDown, TriggerButtonLeft, TriggerButtonRight;
     bool Touch1ButtonUDistance,Touch1ButtonDDistance, Touch1ButtonLDistance, Touch1ButtonRDistance;
-    bool Touch1EnemyUDistance, Touch1EnemyDDistance, Touch1EnemyLDistance, Touch1EnemyRDistance;
-    const double hitboxRadius = 3.17;
+    const double TK = 3.17;
 
     Dictionary<Direction, GameObject> Button;
 
     public enum Direction { Up, Left, Right, Down }
 
-    static string buildTagFrom(string prefix, Direction direction) {
+    string BuildTagFrom(string prefix, Direction direction) {
         return prefix + direction.ToString();
     }
 
     public delegate T Factory<T>(Direction direction);
 
     GameObject[] GetEnemiesFrom(Direction direction) {
-        return GameObject.FindGameObjectsWithTag(buildTagFrom("Enemy", direction));
+        return GameObject.FindGameObjectsWithTag(BuildTagFrom("Enemy", direction));
     }
 
     Dictionary<Direction, int> GetEnemyCounts() {
-        return Playing.BuildDictionary<int>(GetEnemyCount);
+        return BuildDictionary(GetEnemyCount);
     }
 
-    static Dictionary <Direction, T> BuildDictionary <T> (Factory<T> factory){
+    bool IsColliding(float threshold, GameObject object1, GameObject object2){
+        if (object1 == null || object2 == null) return false;
+        var object1Position = object1.transform.position;
+        var object2Position = object2.transform.position;
+        var distance = Vector2.Distance(object1Position, object2Position);
+        return distance <= threshold;
+    }
+
+    bool IsEnemyOverButton (Direction direction){
+        const float hitboxRadius = 2;
+
+        var button = GetButton(direction);
+        var enemyTag = BuildTagFrom("Enemy", direction);
+        var enemy = GameObject.FindGameObjectWithTag(enemyTag);
+
+        return IsColliding(hitboxRadius, button, enemy);
+    }
+
+    //CHANGE ISCOLLIDING SO THAT I CAN USE THE VECTOR2 OF THE TOUCH RATHER THAN JUST THE GAMEOBJECTS
+    bool IsTouchOverButton (Direction direction) {
+        const float hitboxRadius = 3.17f;
+
+        var button = GetButton(direction);
+        Vector2 touchPosition = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
+        return IsColliding(hitboxRadius, button, touchPosition);
+    }
+
+    Dictionary <Direction, T> BuildDictionary <T> (Factory<T> factory){
         return new Dictionary<Direction, T>
         {
             { Direction.Down, factory(Direction.Down) },
@@ -44,80 +72,58 @@ public class Playing : MonoBehaviour{
         return GetEnemiesFrom(direction).Length;
     }
 
-    static GameObject GetButton (Direction direction) {
-        string tag = buildTagFrom("TriggerButton", direction);
-        return GameObject.FindGameObjectWithTag(tag);
+    GameObject GetButton (Direction direction) {
+        string buttonTag = BuildTagFrom("TriggerButton", direction);
+        return GameObject.FindGameObjectWithTag(buttonTag);
     }
 
     void Start()
     {
         Score = 0;
         Touch1CPB = true;
-        Button = Playing.BuildDictionary<GameObject>(GetButton);
+        Button = BuildDictionary(GetButton);
     }
 
     void Update() {
         Debug.Log(Score);
 
-        Dictionary<Direction, int> EnemyCount = GetEnemyCounts();
+        if (Input.touchCount == 0)
+            return;
 
-        int upEnemyCount = EnemyCount[Direction.Up];
+        Touch touch0 = Input.GetTouch(0);
+        touch0.phase = TouchPhase.Began;
+        Vector2 TB1pos = Camera.main.ScreenToWorldPoint(touch0.position);
 
-        if (Input.touchCount > 0)
+        var button = BuildDictionary(GetButton);
+
+        var enemyOverButton = BuildDictionary(IsEnemyOverButton);
+
+        Touch1ButtonUDistance = Vector2.Distance(TB1pos, GetButton(Direction.Up).transform.position) <= TK;
+        Touch1ButtonDDistance = Vector2.Distance(TB1pos, GetButton(Direction.Down).transform.position) <= TK;
+        Touch1ButtonLDistance = Vector2.Distance(TB1pos, GetButton(Direction.Left).transform.position) <= TK;
+        Touch1ButtonRDistance = Vector2.Distance(TB1pos, GetButton(Direction.Right).transform.position) <= TK;
+
+        if (Touch1CPB && Touch1ButtonUDistance && GetEnemyCount(Direction.Up) < 1 || Touch1CPB && Touch1ButtonDDistance && GetEnemyCount(Direction.Down) < 1 || Touch1CPB && Touch1ButtonLDistance && GetEnemyCount(Direction.Left) < 1 || Touch1CPB && Touch1ButtonRDistance && GetEnemyCount(Direction.Right) < 1)
         {
-            Touch touch0 = Input.GetTouch(0);
-            touch0.phase = TouchPhase.Began;
-            Vector2 TB1pos = Camera.main.ScreenToWorldPoint(touch0.position);
-
-            GameObject TriggerButtonU = GetButton(Direction.Up);
-            GameObject TriggerButtonD = GetButton(Direction.Down);
-            GameObject TriggerButtonL = GetButton(Direction.Left);
-            GameObject TriggerButtonR = GetButton(Direction.Right);
-
-
-            Touch1ButtonUDistance = Vector2.Distance(TB1pos, TriggerButtonU.transform.position) <= hitboxRadius;
-            Touch1ButtonDDistance = Vector2.Distance(TB1pos, TriggerButtonD.transform.position) <= hitboxRadius;
-            Touch1ButtonLDistance = Vector2.Distance(TB1pos, TriggerButtonL.transform.position) <= hitboxRadius;
-            Touch1ButtonRDistance = Vector2.Distance(TB1pos, TriggerButtonR.transform.position) <= hitboxRadius;
-
-            if (GetEnemyCount(Direction.Up) > 0)
-                Touch1EnemyUDistance = Vector2.Distance(TriggerButtonU.transform.position, GameObject.FindGameObjectWithTag("EnemyUp").transform.position) < 2;
-            else
-                Touch1EnemyUDistance = false;
-            if ( GetEnemyCount(Direction.Down) > 0)
-                Touch1EnemyDDistance = Vector2.Distance(TriggerButtonD.transform.position, GameObject.FindGameObjectWithTag("EnemyDown").transform.position) < 2;
-            else
-                Touch1EnemyDDistance = false;
-            if (GetEnemyCount(Direction.Left) > 0)
-                Touch1EnemyLDistance = Vector2.Distance(TriggerButtonL.transform.position, GameObject.FindGameObjectWithTag("EnemyLeft").transform.position) < 2;
-            else
-                Touch1EnemyLDistance = false;
-            if (GetEnemyCount(Direction.Right) > 0)
-                Touch1EnemyRDistance = Vector2.Distance(TriggerButtonR.transform.position, GameObject.FindGameObjectWithTag("EnemyRight").transform.position) < 2;
-            else
-                Touch1EnemyRDistance = false;
-
-            if (Touch1CPB && Touch1ButtonUDistance && GetEnemyCount(Direction.Up) < 1 || Touch1CPB && Touch1ButtonDDistance && GetEnemyCount(Direction.Down) < 1 || Touch1CPB && Touch1ButtonLDistance && GetEnemyCount(Direction.Left) < 1 || Touch1CPB && Touch1ButtonRDistance && GetEnemyCount(Direction.Right) < 1)
-            {
-                Score -= 1;
-                Touch1CPB = false;
-                StartCoroutine(Touch1Check());
-            }
-                else if (Touch1CPB && Touch1ButtonUDistance && Touch1EnemyUDistance && GetEnemyCount(Direction.Up) > 0|| Touch1CPB && Touch1ButtonDDistance && Touch1EnemyDDistance && GetEnemyCount(Direction.Down) > 0|| Touch1CPB && Touch1ButtonLDistance && Touch1EnemyLDistance && GetEnemyCount(Direction.Left) > 0 || Touch1CPB && Touch1ButtonRDistance && Touch1EnemyRDistance && GetEnemyCount(Direction.Right) > 0)
-            {
-                Score += 1;
-                Touch1CPB = false;
-                StartCoroutine(Touch1Check());
-            }
-                         else if (Touch1CPB && Touch1ButtonUDistance && !Touch1EnemyUDistance && GetEnemyCount(Direction.Up) > 0 || Touch1CPB && Touch1ButtonDDistance && !Touch1EnemyDDistance && GetEnemyCount(Direction.Down) > 0 || Touch1CPB && Touch1ButtonLDistance && !Touch1EnemyLDistance && GetEnemyCount(Direction.Left) > 0 || Touch1CPB && Touch1ButtonRDistance && !Touch1EnemyRDistance && GetEnemyCount(Direction.Right) > 0)
-            {
-                Score -= 1;
-                Touch1CPB = false;
-                StartCoroutine(Touch1Check());
-            }
-
-
+            Score -= 1;
+            Touch1CPB = false;
+            StartCoroutine(Touch1Check());
         }
+        else if (Touch1CPB && Touch1ButtonUDistance && IsEnemyOverButton(Direction.Up) && GetEnemyCount(Direction.Up) > 0|| Touch1CPB && Touch1ButtonDDistance && IsEnemyOverButton(Direction.Down) && GetEnemyCount(Direction.Down) > 0|| Touch1CPB && Touch1ButtonLDistance && IsEnemyOverButton(Direction.Left) && GetEnemyCount(Direction.Left) > 0 || Touch1CPB && Touch1ButtonRDistance && IsEnemyOverButton(Direction.Right) && GetEnemyCount(Direction.Right) > 0)
+        {
+            Score += 1;
+            Touch1CPB = false;
+            StartCoroutine(Touch1Check());
+        }
+        else if (Touch1CPB && Touch1ButtonUDistance && !IsEnemyOverButton(Direction.Up) && GetEnemyCount(Direction.Up) > 0 || Touch1CPB && Touch1ButtonDDistance && !IsEnemyOverButton(Direction.Down) && GetEnemyCount(Direction.Down) > 0 || Touch1CPB && Touch1ButtonLDistance && !IsEnemyOverButton(Direction.Left) && GetEnemyCount(Direction.Left) > 0 || Touch1CPB && Touch1ButtonRDistance && !IsEnemyOverButton(Direction.Right) && GetEnemyCount(Direction.Right) > 0)
+        {
+            Score -= 1;
+            Touch1CPB = false;
+            StartCoroutine(Touch1Check());
+        }
+
+
+        
 
     }
 
