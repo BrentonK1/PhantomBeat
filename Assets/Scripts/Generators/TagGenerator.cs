@@ -1,17 +1,12 @@
-using UnityEngine;
-using System.Collections;
+namespace PhantomBeat {
+    public static class TagGenerator {
 
-public class NewMonoBehaviour : MonoBehaviour
-{
-	// Use this for initialization
-	void Start()
-	{
+        /// <summary> `BuildFromDirection` builds a tag by concatenating some prefix with a direction.  </summary>
+        /// <param name="prefix"> The prefix of the tag. </param>
+        /// <param name="direction"> The direction used in the creation of this tag. </param>
+        public static string BuildFromDirection(string prefix, Direction direction) {
+            return prefix + direction.ToString();
+        }
+    }
 
-	}
-
-	// Update is called once per frame
-	void Update()
-	{
-			
-	}
 }

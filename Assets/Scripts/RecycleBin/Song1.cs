@@ -17,7 +17,7 @@ public class Song1 : MonoBehaviour {
         float TimeToSpawnUpEnemy = 2;
         var PlaybackTime = (float)FirstSong.time;
 
-        Debug.Log(PlaybackTime);
+        //Debug.Log(PlaybackTime);
 
         if (PlaybackTime - TimeToSpawnUpEnemy == 0)
             SpawnEnemy(Direction.Up);
@@ -28,8 +28,7 @@ public class Song1 : MonoBehaviour {
     }
 
     GameObject Enemy(Direction direction) {
-        //var enemy = GameObject.FindWithTag(BuildTagFrom("Enemy", direction));
-
+        var enemy = GameObject.FindWithTag(BuildTagFrom("Enemy", direction));
         return enemy;
     }
 

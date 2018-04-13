@@ -1,17 +1,8 @@
-using UnityEngine;
-using System.Collections;
-
-public class NewMonoBehaviour : MonoBehaviour
-{
-	// Use this for initialization
-	void Start()
-	{
-
-	}
-
-	// Update is called once per frame
-	void Update()
-	{
-			
-	}
+namespace PhantomBeat {
+    public enum Direction {
+        Up,
+        Down,
+        Left,
+        Right
+    }
 }
