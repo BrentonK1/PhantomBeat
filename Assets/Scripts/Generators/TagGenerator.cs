@@ -1,3 +1,5 @@
+/* Refactored */
+
 namespace PhantomBeat {
     public static class TagGenerator {
 
