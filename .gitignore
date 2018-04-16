@@ -36,3 +36,9 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+
+# Game-specific ignored content
+/[Ll]ibrary/
+/[Pp]ackages/
+
+
