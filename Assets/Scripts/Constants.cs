@@ -1,3 +1,5 @@
+/* <!> DEPRECATED <!> */
+
 namespace PhantomBeat {
     public enum Direction {
         Up,
