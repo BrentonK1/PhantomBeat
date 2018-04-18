@@ -1,5 +1,3 @@
-/* Refactored */
-
 using UnityEngine;
 
 namespace PhantomBeat {
