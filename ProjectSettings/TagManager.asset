@@ -12,6 +12,11 @@ TagManager:
   - RTriggerButton
   - UTriggerButton
   - DTriggerButton
+  - TriggerButtonLeft
+  - TriggerButtonUp
+  - TriggerButtonDown
+  - TriggerButtonRight
+  - Spawner
   layers:
   - Default
   - TransparentFX

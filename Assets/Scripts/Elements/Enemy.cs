@@ -10,10 +10,7 @@ namespace PhantomBeat {
         void Start () {
             this.hitbox = GetComponent<Rigidbody2D>();
             this.direction = DirectionGenerator.BuildFromRigidbody2D(this.hitbox);
-            this.directionVector = this.direction == Direction.Down ? Vector2.down
-                                 : this.direction == Direction.Left ? Vector2.left
-                                 : this.direction == Direction.Right ? Vector2.right
-                                 : Vector2.up;
+            this.directionVector = VectorGenerator.fromDirection(this.direction);
         }
 
         void Update() {

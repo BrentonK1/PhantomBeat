@@ -6,6 +6,9 @@ namespace PhantomBeat {
     public class Track {
         static Dictionary<Direction, Track> protectedInstances;
 
+        private Direction currentDirection;
+        private Transform enemySpawnLocation;
+        private Vector2 vectorDirection;
 
         public static Dictionary<Direction, Track> instances {
             get {
@@ -19,10 +22,13 @@ namespace PhantomBeat {
 
         public Track(Direction direction) {
             this.direction = direction;
+            this.vectorDirection = VectorGenerator.fromDirection(direction);
+            this.enemySpawnLocation = Constants.originTransform;
+            this.enemySpawnLocation.position = 0.000001f * this.vectorDirection;
         }
 
         public GameObject SpawnEnemy() {
-            var enemy = GameObject.Instantiate(Constants.enemyPrefab, Constants.originTransform);
+             return GameObject.Instantiate(Constants.enemyPrefab, enemySpawnLocation);
         }
     }
 

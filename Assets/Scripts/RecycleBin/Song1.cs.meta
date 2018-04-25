@@ -1,11 +1,17 @@
 fileFormatVersion: 2
 guid: cfd840346626e4c62bd8e739672cbb60
-timeCreated: 1522263106
+timeCreated: 1524682158
 licenseType: Free
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - EnemyUp: {fileID: 1652973237499994, guid: e6176419bcd494fd1882e292a69e0d90, type: 2}
+  - EnemyDown: {instanceID: 0}
+  - EnemyLeft: {instanceID: 0}
+  - EnemyRight: {instanceID: 0}
+  - Spawner: {instanceID: 0}
+  - FirstSong: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

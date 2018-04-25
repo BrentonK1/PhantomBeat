@@ -53,13 +53,15 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Constants.cs" />
      <Compile Include="Assets\Scripts\Elements\Button.cs" />
-     <Compile Include="Assets\Scripts\Elements\Constants.cs" />
      <Compile Include="Assets\Scripts\Elements\Enemy.cs" />
      <Compile Include="Assets\Scripts\Elements\Menus.cs" />
+     <Compile Include="Assets\Scripts\Elements\Objects.cs" />
      <Compile Include="Assets\Scripts\Elements\Track.cs" />
      <Compile Include="Assets\Scripts\Generators\DictionaryGenerator.cs" />
      <Compile Include="Assets\Scripts\Generators\DirectionGenerator.cs" />
+     <Compile Include="Assets\Scripts\Generators\DirectionSwitch.cs" />
      <Compile Include="Assets\Scripts\Generators\TagGenerator.cs" />
+     <Compile Include="Assets\Scripts\Generators\VectorGenerator.cs" />
      <Compile Include="Assets\Scripts\Managers\ScoreManager.cs" />
      <Compile Include="Assets\Scripts\Managers\SoundManager.cs" />
      <Compile Include="Assets\Scripts\Managers\TrackManager.cs" />
@@ -202,6 +204,9 @@
  <Reference Include="UnityEngine.WindModule">
  <HintPath>/Applications/Unity/Unity.app/Contents/Managed/UnityEngine/UnityEngine.WindModule.dll</HintPath>
  </Reference>
+ <Reference Include="Facebook.Unity.Settings">
+ <HintPath>/Users/KearneyB/Phantasmic Mind Moblile/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEngine.UIAutomation">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UIAutomation/UnityEngine.UIAutomation.dll</HintPath>
  </Reference>
@@ -240,9 +245,6 @@
  </Reference>
  <Reference Include="UnityEngine.Purchasing">
  <HintPath>/Users/KearneyB/Library/Unity/cache/packages/packages.unity.com/com.unity.purchasing@0.0.18/UnityEngine.Purchasing.dll</HintPath>
- </Reference>
- <Reference Include="Facebook.Unity.Settings">
- <HintPath>/Users/KearneyB/Phantasmic Mind Moblile/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

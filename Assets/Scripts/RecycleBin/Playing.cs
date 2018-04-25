@@ -134,7 +134,7 @@ public class Playing : MonoBehaviour
         }
     }
 
-    IEnumerator Touch1Check () {
+    IEnumerator Touch1Check() {
         yield return new WaitForSeconds(0.01f);
         if (Input.GetTouch(0).phase != TouchPhase.Ended)
             StartCoroutine(Touch1Check());

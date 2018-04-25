@@ -2,13 +2,12 @@ using UnityEngine;
 using System.Collections.Generic;
 
 namespace PhantomBeat {
-
-    enum ButtonState {
-        Active,
-        Inactive
-    }
-
     public class Button : MonoBehaviour {
+        
+        enum ButtonState {
+            Active,
+            Inactive
+        }
 
         static float hitboxRadius = 3.17f;
         ButtonState state = ButtonState.Inactive;
@@ -26,11 +25,11 @@ namespace PhantomBeat {
         }
 
         void OnCollision2DEnter(Collision2D enemy) {
-            enemiesInRange.Push(enemy.gameObject);
+            this.enemiesInRange.Push(enemy.gameObject);
         }
 
         void OnCollision2DExit(Collision2D enemy) {
-            enemiesInRange.Pop();
+            this.enemiesInRange.Pop();
         }
 
         void Update() {
@@ -44,7 +43,7 @@ namespace PhantomBeat {
                 this.state = ButtonState.Active;
                 StartCoroutine(Touch1Check());
 
-                var enemiesKilled = this.KillEnemies();
+                // var enemiesKilled = this.KillEnemies();
                 // ScoreManager.add(enemiesKilled * pointModifier);
             }
         }
