@@ -52,8 +52,8 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Constants.cs" />
-     <Compile Include="Assets\Scripts\Elements\Button V2.cs" />
      <Compile Include="Assets\Scripts\Elements\Button.cs" />
+     <Compile Include="Assets\Scripts\Elements\ButtonV2.cs" />
      <Compile Include="Assets\Scripts\Elements\Enemy.cs" />
      <Compile Include="Assets\Scripts\Elements\Menus.cs" />
      <Compile Include="Assets\Scripts\Elements\Objects.cs" />
