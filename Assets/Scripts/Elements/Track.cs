@@ -28,7 +28,7 @@ namespace PhantomBeat {
         }
 
         public GameObject SpawnEnemy() {
-             return GameObject.Instantiate(Constants.enemyPrefab, enemySpawnLocation);
+             return GameObject.Instantiate(ButtonV2.EnemyPrefab, enemySpawnLocation);
         }
     }
 

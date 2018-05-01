@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4367857000166510}
   - component: {fileID: 212955195756565430}
   - component: {fileID: 61559151758400138}
-  - component: {fileID: 114754310321268060}
   m_Layer: 0
   m_Name: Button
   m_TagString: TriggerButtonUp
@@ -67,17 +66,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5.7912416, y: 5.1848702}
   m_EdgeRadius: 0
---- !u!114 &114754310321268060
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1364892115622910}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9bff5778bbfce482798126d91aae358f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &212955195756565430
 SpriteRenderer:
   m_ObjectHideFlags: 1
