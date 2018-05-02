@@ -5,7 +5,7 @@ using UnityEngine;
 namespace PhantomBeat {
 	public class ButtonV2 : MonoBehaviour {
 
-		public static GameObject EnemyPrefab;
+		//public GameObject EnemyPrefab;
 
 		enum ButtonState {
 				Active,
@@ -36,18 +36,18 @@ namespace PhantomBeat {
         }
 
         void Update() {
-            var firstTouch = Input.GetTouch(0);
-            firstTouch.phase = TouchPhase.Began;
+            if (Input.touchCount >0){
+                var firstTouch = Input.GetTouch(0);
+                firstTouch.phase = TouchPhase.Began;
+                var firstTouchPosition = Camera.main.ScreenToWorldPoint(firstTouch.position);
+                var touchInRange = Vector2.Distance(this.gameObject.transform.position, firstTouchPosition) < ButtonV2.hitboxRadius;
 
-            var firstTouchPosition = Camera.main.ScreenToWorldPoint(firstTouch.position);
-            var touchInRange = Vector2.Distance(this.gameObject.transform.position, firstTouchPosition) < ButtonV2.hitboxRadius;
-
-            if (touchInRange && this.state == ButtonState.Inactive) {
-                this.state = ButtonState.Active;
-                StartCoroutine(Touch1Check());
-
-                // var enemiesKilled = this.KillEnemies();
-                // ScoreManager.add(enemiesKilled * pointModifier);
+                if (touchInRange && this.state == ButtonState.Inactive) {
+                    this.state = ButtonState.Active;
+                    StartCoroutine(Touch1Check());
+                    // var enemiesKilled = this.KillEnemies();
+                    // ScoreManager.add(enemiesKilled * pointModifier);
+                }
             }
         }
 

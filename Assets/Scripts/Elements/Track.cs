@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 namespace PhantomBeat {
@@ -9,6 +10,7 @@ namespace PhantomBeat {
         private Direction currentDirection;
         private Transform enemySpawnLocation;
         private Vector2 vectorDirection;
+        private Vector3 enemySpawnTransform;
 
         public static Dictionary<Direction, Track> instances {
             get {
@@ -25,10 +27,11 @@ namespace PhantomBeat {
             this.vectorDirection = VectorGenerator.fromDirection(direction);
             this.enemySpawnLocation = Constants.originTransform;
             this.enemySpawnLocation.position = 0.000001f * this.vectorDirection;
+            enemySpawnTransform = new Vector3(enemySpawnLocation.position.x, enemySpawnLocation.position.y, 0);
         }
 
         public GameObject SpawnEnemy() {
-             return GameObject.Instantiate(ButtonV2.EnemyPrefab, enemySpawnLocation);
+             return GameObject.Instantiate(Constants.enemyPrefab, enemySpawnTransform, Quaternion.identity);
         }
     }
 

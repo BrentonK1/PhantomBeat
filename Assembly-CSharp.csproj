@@ -55,8 +55,8 @@
      <Compile Include="Assets\Scripts\Elements\Button.cs" />
      <Compile Include="Assets\Scripts\Elements\ButtonV2.cs" />
      <Compile Include="Assets\Scripts\Elements\Enemy.cs" />
+     <Compile Include="Assets\Scripts\Elements\EnemyObject.cs" />
      <Compile Include="Assets\Scripts\Elements\Menus.cs" />
-     <Compile Include="Assets\Scripts\Elements\Objects.cs" />
      <Compile Include="Assets\Scripts\Elements\Track.cs" />
      <Compile Include="Assets\Scripts\Generators\DictionaryGenerator.cs" />
      <Compile Include="Assets\Scripts\Generators\DirectionGenerator.cs" />
