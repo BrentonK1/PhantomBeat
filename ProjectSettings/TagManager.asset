@@ -18,6 +18,7 @@ TagManager:
   - TriggerButtonRight
   - Spawner
   - Character
+  - enemy
   layers:
   - Default
   - TransparentFX
