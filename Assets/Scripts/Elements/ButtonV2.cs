@@ -17,21 +17,28 @@ namespace PhantomBeat {
 
         Stack<GameObject> enemiesInRange = new Stack<GameObject>();
 
-        int KillEnemies() {
+        void KillEnemies() {
             var selectedEnemies = enemiesInRange.ToArray();
-
-            foreach(var enemy in selectedEnemies) {
-                Destroy(enemy);
+            if (selectedEnemies.Length == 0){
+                Debug.Log("No enemies there");
+                ScoreManager.score --;
             }
-
-            return selectedEnemies.Length;
+            else if (selectedEnemies.Length > 0){
+                Debug.Log("There are " + selectedEnemies.Length + " enemies there");
+                foreach(var enemy in enemiesInRange) {
+                    Destroy(enemy);
+                    ScoreManager.score += (1 * selectedEnemies.Length);
+                }
+            }
         }
 
-        void OnCollision2DEnter(Collision2D enemy) {
+        //WILL NOT REGISTER ENEMIES IN COLLISION
+        void OnTriggerEnter2D(Collider2D enemy) {
+            Debug.Log("enemy in collision");
             this.enemiesInRange.Push(enemy.gameObject);
         }
 
-        void OnCollision2DExit(Collision2D enemy) {
+        void OnTriggerExit2D(Collider2D enemy) {
             this.enemiesInRange.Pop();
         }
 
@@ -45,8 +52,7 @@ namespace PhantomBeat {
                 if (touchInRange && this.state == ButtonState.Inactive) {
                     this.state = ButtonState.Active;
                     StartCoroutine(Touch1Check());
-                    // var enemiesKilled = this.KillEnemies();
-                    // ScoreManager.add(enemiesKilled * pointModifier);
+                    KillEnemies();
                 }
             }
         }

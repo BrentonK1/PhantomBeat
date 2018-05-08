@@ -26,12 +26,13 @@ namespace PhantomBeat {
             this.direction = direction;
             this.vectorDirection = VectorGenerator.fromDirection(direction);
             this.enemySpawnLocation = Constants.originTransform;
-            this.enemySpawnLocation.position = 0.000001f * this.vectorDirection;
+            this.enemySpawnLocation.position = 0.00001f * this.vectorDirection;
             enemySpawnTransform = new Vector3(enemySpawnLocation.position.x, enemySpawnLocation.position.y, 0);
         }
 
         public GameObject SpawnEnemy() {
-             return GameObject.Instantiate(Constants.enemyPrefab, enemySpawnTransform, Quaternion.identity);
+            //Debug.Log("Wow, look at that " + this.enemySpawnLocation.position.ToString() + ", SEAN. IT WORKED MY WAY AND NOT YOURS");
+            return GameObject.Instantiate(Constants.enemyPrefab, enemySpawnTransform, Quaternion.identity);
         }
     }
 

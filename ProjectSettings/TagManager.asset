@@ -17,6 +17,7 @@ TagManager:
   - TriggerButtonDown
   - TriggerButtonRight
   - Spawner
+  - Character
   layers:
   - Default
   - TransparentFX

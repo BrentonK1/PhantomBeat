@@ -1,4 +1,7 @@
 using UnityEngine;
+using PhantomBeat;
+using System.Collections.Generic;
+using System.Collections;
 
 namespace PhantomBeat {
     public class Enemy : MonoBehaviour {
@@ -15,6 +18,11 @@ namespace PhantomBeat {
 
         void Update() {
             this.hitbox.velocity = this.directionVector * this.speed;
+        }
+        void OnCollisionEnter2D (Collision2D col){
+            if (col.gameObject.tag == "Character")
+                Destroy(gameObject);
+                ScoreManager.score--;
         }
     }
 }
