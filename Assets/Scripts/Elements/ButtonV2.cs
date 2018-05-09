@@ -6,43 +6,49 @@ namespace PhantomBeat {
 	public class ButtonV2 : MonoBehaviour {
 
 		//public GameObject EnemyPrefab;
+        public GameObject Iggy;
+        private Animator IggyAnimator;
 
 		enum ButtonState {
 				Active,
 				Inactive
 			}
 
+        void Start() {
+            IggyAnimator = Iggy.gameObject.GetComponent<Animator>();
+        }
+
         static float hitboxRadius = 3.17f;
         ButtonState state = ButtonState.Inactive;
 
-        Stack<GameObject> enemiesInRange = new Stack<GameObject>();
+        public static Stack<GameObject> enemiesInRange = new Stack<GameObject>();
 
         void KillEnemies() {
             var selectedEnemies = enemiesInRange.ToArray();
+            Debug.Log(selectedEnemies.Length + " enemies");
+
             if (selectedEnemies.Length == 0){
-                Debug.Log("No enemies there");
                 ScoreManager.score --;
             }
             else if (selectedEnemies.Length > 0){
-                Debug.Log("There are " + selectedEnemies.Length + " enemies there");
                 foreach(var enemy in enemiesInRange) {
                     Destroy(enemy);
-                    ScoreManager.score += (1 * selectedEnemies.Length);
+                    ScoreManager.score ++;
                 }
             }
         }
 
-        //WILL NOT REGISTER ENEMIES IN COLLISION
         void OnTriggerEnter2D(Collider2D enemy) {
-            Debug.Log("enemy in collision");
-            this.enemiesInRange.Push(enemy.gameObject);
+            enemiesInRange.Push(enemy.gameObject);
         }
 
         void OnTriggerExit2D(Collider2D enemy) {
-            this.enemiesInRange.Pop();
+            enemiesInRange.Pop();
+            Debug.Log("enemy left collider");
         }
 
         void Update() {
+
             if (Input.touchCount >0){
                 var firstTouch = Input.GetTouch(0);
                 firstTouch.phase = TouchPhase.Began;
@@ -50,6 +56,9 @@ namespace PhantomBeat {
                 var touchInRange = Vector2.Distance(this.gameObject.transform.position, firstTouchPosition) < ButtonV2.hitboxRadius;
 
                 if (touchInRange && this.state == ButtonState.Inactive) {
+                    if (this.gameObject.tag == "TriggerButtonDown"){
+                        IggyAnimator.Play("Attack2");
+                    }
                     this.state = ButtonState.Active;
                     StartCoroutine(Touch1Check());
                     KillEnemies();

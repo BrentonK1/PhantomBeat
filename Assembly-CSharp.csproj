@@ -63,6 +63,7 @@
      <Compile Include="Assets\Scripts\Generators\DirectionSwitch.cs" />
      <Compile Include="Assets\Scripts\Generators\TagGenerator.cs" />
      <Compile Include="Assets\Scripts\Generators\VectorGenerator.cs" />
+     <Compile Include="Assets\Scripts\Managers\Menu.cs" />
      <Compile Include="Assets\Scripts\Managers\ScoreManager.cs" />
      <Compile Include="Assets\Scripts\Managers\SoundManager.cs" />
      <Compile Include="Assets\Scripts\Managers\TrackManager.cs" />

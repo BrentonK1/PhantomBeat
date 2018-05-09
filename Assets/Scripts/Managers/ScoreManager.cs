@@ -9,7 +9,6 @@ public class ScoreManager : MonoBehaviour{
     public Text ScoreText;
     void Update(){
         ScoreText.text = ("Score: " + score);
-        Debug.Log(score);
     }
 
 }

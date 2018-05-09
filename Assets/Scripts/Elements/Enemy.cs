@@ -22,6 +22,7 @@ namespace PhantomBeat {
         void OnCollisionEnter2D (Collision2D col){
             if (col.gameObject.tag == "Character")
                 Destroy(gameObject);
+                ButtonV2.enemiesInRange.Pop();
                 ScoreManager.score--;
         }
     }

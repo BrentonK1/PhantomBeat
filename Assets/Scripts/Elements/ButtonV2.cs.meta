@@ -5,7 +5,8 @@ licenseType: Free
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - Iggy: {fileID: 1907282784214676, guid: 35b1b0c5a3eea47b9897a756c0e12d20, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

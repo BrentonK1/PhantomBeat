@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Collections;
 
 public class SoundManager : MonoBehaviour{
-    private float waitTime = 0.5f;
+    private float waitTime = 4f;
     void Start() {
         StartCoroutine(WaitForUnityTogetTheHellUpAndLearnHowToBeAFunctionalEngine());
         //Track.instances[Direction.Right].SpawnEnemy();
@@ -28,7 +28,7 @@ public class SoundManager : MonoBehaviour{
         else if(number == 4)
             Track.instances[Direction.Right].SpawnEnemy();
         
-        waitTime = 1;
+        waitTime = 4;
         StartCoroutine(WaitForUnityTogetTheHellUpAndLearnHowToBeAFunctionalEngine());
         //StopAllCoroutines();
     }
