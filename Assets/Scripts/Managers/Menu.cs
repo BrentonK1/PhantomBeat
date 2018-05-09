@@ -16,9 +16,10 @@ public class Menu : MonoBehaviour {
 	}
 
 	void PressedStartButton() {
-		SceneManager.LoadSceneAsync("Play Scene");
+		//SceneManager.LoadSceneAsync("Play Scene");
+		SceneManager.LoadScene("Play Scene");
 	}
 	void PressedExitButton() {
-		  Application.Quit();
+		  //Application.Quit();
 	}
 }
