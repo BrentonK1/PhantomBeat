@@ -12,7 +12,7 @@ public class SoundManager : MonoBehaviour{
     }
 
     int directionNumber(){
-        var randomNumber = UnityEngine.Random.Range(1,4);
+        var randomNumber = UnityEngine.Random.Range(1,5);
         return randomNumber;
     }
 
