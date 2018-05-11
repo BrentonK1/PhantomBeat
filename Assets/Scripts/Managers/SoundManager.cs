@@ -3,11 +3,15 @@ using UnityEngine;
 using PhantomBeat;
 using System.Collections.Generic;
 using System.Collections;
+using UnityEngine.UI;
 
 public class SoundManager : MonoBehaviour{
     private float waitTime = 0.75f;
+    public Text LoadingText;
+
     void Start() {
         StartCoroutine(WaitForUnityTogetTheHellUpAndLearnHowToBeAFunctionalEngine());
+        LoadingText.text = ("Loading...");
         //Track.instances[Direction.Right].SpawnEnemy();
     }
 
@@ -17,6 +21,7 @@ public class SoundManager : MonoBehaviour{
     }
 
     IEnumerator<WaitForSeconds> WaitForUnityTogetTheHellUpAndLearnHowToBeAFunctionalEngine() {
+         LoadingText.text = ("");
         yield return new WaitForSeconds(waitTime);
         var number = directionNumber();
         if(number == 1)

@@ -6,8 +6,8 @@ namespace PhantomBeat {
 	public class ButtonV2 : MonoBehaviour {
 
 		//public GameObject EnemyPrefab;
-        public GameObject Iggy;
-        private Animator IggyAnimator;
+        public GameObject Iggy, Henry, BeauLeft, BeauRight;
+        private Animator IggyAnimator, HenryAnimator, BeauLeftAnimator, BeauRightAnimator;
 
 		enum ButtonState {
 				Active,
@@ -16,6 +16,9 @@ namespace PhantomBeat {
 
         void Start() {
             IggyAnimator = Iggy.gameObject.GetComponent<Animator>();
+            HenryAnimator = Henry.gameObject.GetComponent<Animator>();
+            BeauLeftAnimator = BeauLeft.gameObject.GetComponent<Animator>();
+            BeauRightAnimator = BeauRight.gameObject.GetComponent<Animator>();
         }
 
         static float hitboxRadius = 3.17f;
@@ -25,7 +28,6 @@ namespace PhantomBeat {
 
         void KillEnemies() {
             var selectedEnemies = enemiesInRange.ToArray();
-            Debug.Log(selectedEnemies.Length + " enemies");
 
             if (selectedEnemies.Length == 0){
                 ScoreManager.score --;
@@ -44,7 +46,6 @@ namespace PhantomBeat {
 
         void OnTriggerExit2D(Collider2D enemy) {
             enemiesInRange.Pop();
-            Debug.Log("enemy left collider");
         }
 
         void Update() {
@@ -56,9 +57,11 @@ namespace PhantomBeat {
                 var touchInRange = Vector2.Distance(this.gameObject.transform.position, firstTouchPosition) < ButtonV2.hitboxRadius;
 
                 if (touchInRange && this.state == ButtonState.Inactive) {
-                    if (this.gameObject.tag == "TriggerButtonDown"){
+                    if (this.gameObject.tag == "TriggerButtonDown")
                         IggyAnimator.Play("Attack2");
-                    }
+                    else if (this.gameObject.tag == "TriggerButtonUp")
+                        HenryAnimator.Play("attacking");
+                    
                     this.state = ButtonState.Active;
                     StartCoroutine(Touch1Check());
                     KillEnemies();
