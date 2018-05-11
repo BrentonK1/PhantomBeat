@@ -12,7 +12,6 @@ public class SoundManager : MonoBehaviour{
     void Start() {
         StartCoroutine(WaitForUnityTogetTheHellUpAndLearnHowToBeAFunctionalEngine());
         LoadingText.text = ("Loading...");
-        //Track.instances[Direction.Right].SpawnEnemy();
     }
 
     int directionNumber(){
@@ -35,8 +34,5 @@ public class SoundManager : MonoBehaviour{
         
         waitTime = 1;
         StartCoroutine(WaitForUnityTogetTheHellUpAndLearnHowToBeAFunctionalEngine());
-        //StopAllCoroutines();
     }
 }
-
-// https://answers.unity.com/questions/1138633/how-to-sync-gameobject-creation-to-the-beat-of-a-s.html
