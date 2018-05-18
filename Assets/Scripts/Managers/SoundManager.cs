@@ -4,14 +4,19 @@ using PhantomBeat;
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 
 public class SoundManager : MonoBehaviour{
     private float waitTime = 0.75f;
     public Text LoadingText;
+    public static AudioSource song;
+    
 
     void Start() {
         StartCoroutine(WaitForUnityTogetTheHellUpAndLearnHowToBeAFunctionalEngine());
         LoadingText.text = ("Loading...");
+        song = GetComponent<AudioSource>();
+        song.Play();
     }
 
     int directionNumber(){
