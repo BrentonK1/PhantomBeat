@@ -49,19 +49,23 @@ namespace PhantomBeat {
         }
 
         void Update() {
-
+            
             if (Input.touchCount >0){
                 var firstTouch = Input.GetTouch(0);
                 firstTouch.phase = TouchPhase.Began;
                 var firstTouchPosition = Camera.main.ScreenToWorldPoint(firstTouch.position);
                 var touchInRange = Vector2.Distance(this.gameObject.transform.position, firstTouchPosition) < ButtonV2.hitboxRadius;
 
-                if (touchInRange && this.state == ButtonState.Inactive) {
+                if (touchInRange && this.state == ButtonState.Inactive && Time.timeScale != 0) {
                     if (this.gameObject.tag == "TriggerButtonDown")
                         IggyAnimator.Play("Attack2");
                     else if (this.gameObject.tag == "TriggerButtonUp")
-                        HenryAnimator.Play("attacking");
-                    
+                        HenryAnimator.Play("attacking");   
+                    else if (this.gameObject.tag == "TriggerButtonRight")
+                        BeauRightAnimator.Play("Beau Right");   
+                    else if (this.gameObject.tag == "TriggerButtonLeft")
+                        BeauLeftAnimator.Play("Beau Left");  
+
                     this.state = ButtonState.Active;
                     StartCoroutine(Touch1Check());
                     KillEnemies();
